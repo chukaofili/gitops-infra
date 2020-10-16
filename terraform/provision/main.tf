@@ -10,7 +10,7 @@ resource "tls_private_key" "flux" {
 }
 
 data "github_repository" "flux-repo" {
-  name = var.github_repo
+  full_name = var.github_repo
 }
 
 resource "github_user_ssh_key" "flux" {

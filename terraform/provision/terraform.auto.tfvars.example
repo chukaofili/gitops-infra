@@ -1,7 +1,6 @@
 project = "" // replace with your project id
 cluster_name = "" // replace with you cluster name
 credentials = "" // replace with a base64 encoded version of your gcp iam service account
-github_owner = "" // replace with github username
 github_repo = "" // replace with github flux config repo
 github_token = "" // replace with github token (needs read, write perms)
 flux_git_path = "" // replace with path to flux config folder in flux github repo
