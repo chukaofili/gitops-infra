@@ -8,9 +8,9 @@ spec:
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
     name: nginx-ingress
-    version: 1.36.2
+    version: 3.7.1
   values:
     controller:
-      replicaCount: true
+      replicaCount: 3
     rbac:
       create: true
