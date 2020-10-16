@@ -14,3 +14,5 @@ spec:
       replicaCount: 3
     rbac:
       create: true
+    defaultBackend:
+      enabled: true
