@@ -1,0 +1,3 @@
+project = "" // replace with your project id
+cluster_name = "" // replace with you cluster name
+credentials = "" // replace with a base64 encoded version of your gcp iam service account

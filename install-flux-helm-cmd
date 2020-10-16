@@ -1,0 +1,26 @@
+export GHUSER="example-user"
+export REPO="example-repo"
+export CONFIG_PATH="flux_config"
+export FLUX_GIT_USER="John Doe"
+export FLUX_GIT_EMAIL="john@doe.com"
+export FLUX_GIT_SECRET_NAME="flux-gpg-signing-key"
+export FLUX_GIT_DEPLOY_SECRET_NAME="flux-git-deploy"
+export FLUX_GIT_KEY="key-here"
+
+helm upgrade -i flux fluxcd/flux \
+--set git.url=git@github.com:${GHUSER}/${REPO} \
+--set manifestGeneration=true \
+--set registry.rps=20 \
+--set git.path="${CONFIG_PATH}" \
+--set registry.automationInterval=3m \
+--set syncGarbageCollection.enabled=true \
+--set git.user=${FLUX_GIT_USER} \
+--set git.email=${FLUX_GIT_EMAIL} \
+--set gpgKeys.secretName=${FLUX_GIT_SECRET_NAME} \
+--set git.signingKey=${FLUX_GIT_KEY} \
+--namespace flux
+
+helm upgrade -i helm-operator fluxcd/helm-operator \
+--set git.ssh.secretName=${FLUX_GIT_DEPLOY_SECRET_NAME} \
+--set helm.versions=v3 \
+--namespace flux

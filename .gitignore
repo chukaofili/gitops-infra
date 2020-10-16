@@ -1,0 +1,7 @@
+service-account.json
+terraform.tfvars
+terraform.auto.tfvars
+terraform.tfstate
+terraform.tfstate.backup
+/terraform/provision/.terraform
+/terraform/cluster/.terraform

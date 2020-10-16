@@ -1,0 +1,11 @@
+project = "" // replace with your project id
+cluster_name = "" // replace with you cluster name
+credentials = "" // replace with a base64 encoded version of your gcp iam service account
+github_owner = "" // replace with github username
+github_repo = "" // replace with github flux config repo
+github_token = "" // replace with github token (needs read, write perms)
+flux_git_path = "" // replace with path to flux config folder in flux github repo
+flux_git_user = "" // replace with separate github user to orchestrate flux deploys
+flux_git_email = "" // replace with flux github user email
+flux_git_signingkey = "" // replace with flux github user gpg signing key id
+flux_gpg_signing_key_file = "" // replace with flux github user gpg signing key file (base64 encoded)
