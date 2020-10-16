@@ -1,0 +1,14 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: cert-manager
+  namespace: cert-manager
+spec:
+  releaseName: cert-manager
+  createNamespace: true
+  chart:
+    repository: https://charts.jetstack.io
+    name: cert-manager
+    version: 1.0.3
+  values:
+    installCRDs: true
