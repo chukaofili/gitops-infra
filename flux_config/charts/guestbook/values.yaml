@@ -37,7 +37,7 @@ services:
           path: /
       annotations: {}
       tls: 
-        enabled: false
+        enabled: true
         hosts:
         - fe.ng.chuka.dev
 
