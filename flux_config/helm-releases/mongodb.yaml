@@ -1,0 +1,14 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: mongodb
+  namespace: system
+spec:
+  releaseName: mongodb
+  chart:
+    repository: https://charts.bitnami.com/bitnami
+    name: mongodb
+    version: 7.10.10
+  values:
+    usePassword: false
+    useStatefulSet: true
