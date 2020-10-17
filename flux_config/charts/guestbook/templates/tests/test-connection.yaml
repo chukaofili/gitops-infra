@@ -1,14 +1,12 @@
 {{- $fullName := include "guestbook.fullname" . -}}
 {{- $labels := include "guestbook.labels" . | nindent 4}}
-{{- range $key, $val := .Values.services }}
----
 apiVersion: v1
 kind: Pod
 metadata:
-  name: {{ $fullName }}-{{ $key }}-test-connection
+  name: {{ $fullName }}-backend-test-connection
   labels:
   {{- $labels }}
-    app.service: {{ $key }}
+    app.service: backend
   annotations:
     "helm.sh/hook": test-success
 spec:
@@ -16,6 +14,22 @@ spec:
   - name: wget
     image: busybox
     command: ['wget']
-    args: ['{{ $fullName }}-{{ $key}}:{{ $val.service.port }}']
+    args: ['{{ $fullName }}-backend:{{ .Values.backend.service.port }}']
   restartPolicy: Never
-{{ end }}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ $fullName }}-frontend-test-connection
+  labels:
+  {{- $labels }}
+    app.service: frontend
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+  - name: wget
+    image: busybox
+    command: ['wget']
+    args: ['{{ $fullName }}-frontend:{{ .Values.frontend.service.port }}']
+  restartPolicy: Never

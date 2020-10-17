@@ -14,15 +14,14 @@ spec:
     path: flux_config/charts/guestbook
     ref: master
   values:
-    services:
-      frontend:
-        image:
-          repository: gcr.io/ms-clients-2018/nodejs-guestbook-frontend
-          tag: 90b6273
-        replicaCount: 1
-      backend:
-        dbUrl: "mongodb.system:27017"
-        image:
-          repository: gcr.io/ms-clients-2018/nodejs-guestbook-backend
-          tag: 90b6273
-        replicaCount: 1
+    frontend:
+      image:
+        repository: gcr.io/ms-clients-2018/nodejs-guestbook-frontend
+        tag: 90b6273
+      replicaCount: 1
+    backend:
+      dbUrl: "mongodb.system:27017"
+      image:
+        repository: gcr.io/ms-clients-2018/nodejs-guestbook-backend
+        tag: 90b6273
+      replicaCount: 1

@@ -1,13 +1,13 @@
-apiVersion: helm.fluxcd.io/v1
-kind: HelmRelease
-metadata:
-  name: redis
-  namespace: system
-spec:
-  releaseName: redis
-  chart:
-    repository: https://charts.bitnami.com/bitnami
-    name: redis
-    version: 11.2.1
-  values:
-    usePassword: false
+# apiVersion: helm.fluxcd.io/v1
+# kind: HelmRelease
+# metadata:
+#   name: redis
+#   namespace: system
+# spec:
+#   releaseName: redis
+#   chart:
+#     repository: https://charts.bitnami.com/bitnami
+#     name: redis
+#     version: 11.2.1
+#   values:
+#     usePassword: false

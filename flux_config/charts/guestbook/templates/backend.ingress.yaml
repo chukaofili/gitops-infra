@@ -1,10 +1,7 @@
 {{- $fullName := include "guestbook.fullname" . -}}
 {{- $labels := include "guestbook.labels" . | nindent 4}}
-{{- range $key, $val := .Values.services }}
 ---
-{{- if $val.ingress.enabled -}}
-{{- $svcName := $key -}}
-{{- $svcPort := $val.service.port -}}
+{{- if .Values.backend.ingress.enabled -}}
 {{- if semverCompare ">=1.14-0" $.Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
@@ -12,36 +9,35 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}-{{ $key }}
+  name: {{ $fullName }}-backend
   labels:
   {{- $labels }}
-    app.service: {{ $key }}
-  {{- if $val.ingress.tls.enabled }}
-  {{- with $.Values.ingress.annotations }}
+    app.service: backend
+  {{- if .Values.backend.ingress.tls.enabled }}
+  {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- end }}
 spec:
-  {{- if $val.ingress.tls.enabled }}
+  {{- if .Values.backend.ingress.tls.enabled }}
   tls:
-  {{- range $val.ingress.tls.hosts }}
+  {{- range .Values.backend.ingress.tls.hosts }}
   - hosts:
     - {{ . | quote }}
-    secretName: {{ $fullName }}-{{ $svcName }}-tls
+    secretName: {{ $fullName }}-backend-tls
   {{- end }}
   {{- end }}
   rules:
-  {{- range $val.ingress.hosts }}
+  {{- range .Values.backend.ingress.hosts }}
   - host: {{ .host | quote }}
     http:
       paths:
       {{- range .paths }}
       - path: {{ . }}
         backend:
-          serviceName: {{ $fullName }}-{{ $svcName }}
-          servicePort: {{ $svcPort }}
+          serviceName: {{ $fullName }}-backend
+          servicePort: {{ $.Values.backend.service.port }}
       {{- end }}
   {{- end }}
   {{- end }}
-{{ end }}

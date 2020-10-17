@@ -1,0 +1,43 @@
+{{- $fullName := include "guestbook.fullname" . -}}
+{{- $labels := include "guestbook.labels" . | nindent 4}}
+---
+{{- if .Values.frontend.ingress.enabled -}}
+{{- if semverCompare ">=1.14-0" $.Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: {{ $fullName }}-frontend
+  labels:
+  {{- $labels }}
+    app.service: frontend
+  {{- if .Values.frontend.ingress.tls.enabled }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- end }}
+spec:
+  {{- if .Values.frontend.ingress.tls.enabled }}
+  tls:
+  {{- range .Values.frontend.ingress.tls.hosts }}
+  - hosts:
+    - {{ . | quote }}
+    secretName: {{ $fullName }}-frontend-tls
+  {{- end }}
+  {{- end }}
+  rules:
+  {{- range .Values.frontend.ingress.hosts }}
+  - host: {{ .host | quote }}
+    http:
+      paths:
+      {{- range .paths }}
+      - path: {{ . }}
+        backend:
+          serviceName: {{ $fullName }}-frontend
+          servicePort: {{ $.Values.frontend.service.port }}
+      {{- end }}
+  {{- end }}
+  {{- end }}

@@ -1,45 +1,44 @@
-services:
-  backend:
-    dbUrl: "mongodb:27017"
-    replicaCount: 1 
-    image:
-      repository: guestbook-backend
-      pullPolicy: IfNotPresent
-      tag: "1.0.0"
-    service:
-      type: ClusterIP
-      port: 8000
-    ingress:
+backend:
+  dbUrl: "mongodb:27017"
+  replicaCount: 1 
+  image:
+    repository: guestbook-backend
+    pullPolicy: IfNotPresent
+    tag: "1.0.0"
+  service:
+    type: ClusterIP
+    port: 8000
+  ingress:
+    enabled: true
+    hosts:
+    - host: be.ng.chuka.dev
+      paths: 
+        path: /
+    annotations: {}
+    tls: 
       enabled: true
       hosts:
-      - host: be.ng.chuka.dev
-        paths: 
-          path: /
-      annotations: {}
-      tls: 
-        enabled: true
-        hosts:
-        - be.ng.chuka.dev
-  frontend:
-    replicaCount: 1 
-    image:
-      repository: guestbook-frontend
-      pullPolicy: IfNotPresent
-      tag: "1.0.0"
-    service:
-      type: ClusterIP
-      port: 80
-    ingress:
+      - be.ng.chuka.dev
+frontend:
+  replicaCount: 1 
+  image:
+    repository: guestbook-frontend
+    pullPolicy: IfNotPresent
+    tag: "1.0.0"
+  service:
+    type: ClusterIP
+    port: 80
+  ingress:
+    enabled: true
+    hosts:
+    - host: fe.ng.chuka.dev
+      paths: 
+        path: /
+    annotations: {}
+    tls: 
       enabled: true
       hosts:
-      - host: fe.ng.chuka.dev
-        paths: 
-          path: /
-      annotations: {}
-      tls: 
-        enabled: true
-        hosts:
-        - fe.ng.chuka.dev
+      - fe.ng.chuka.dev
 
 nameOverride: ""
 fullnameOverride: ""
