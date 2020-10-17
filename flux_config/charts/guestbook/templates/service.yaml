@@ -1,0 +1,23 @@
+{{- $fullName := include "guestbook.fullname" . -}}
+{{- $labels := include "guestbook.labels" . | nindent 4}}
+{{- $selectorLabels := include "guestbook.selectorLabels" . | nindent 4}}
+{{- range .Values.services }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $fullName }}-{{ .name }}
+  labels:
+  {{- $labels }}
+    app.service: {{ .name }}
+spec:
+  type: {{ .service.type }}
+  ports:
+  - port: {{ .service.port }}
+    targetPort: http
+    protocol: TCP
+    name: http
+  selector:
+  {{- $selectorLabels }}
+    app.service: {{ .name }}
+{{ end }}

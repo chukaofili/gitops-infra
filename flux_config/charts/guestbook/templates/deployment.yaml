@@ -1,0 +1,33 @@
+{{- $fullName := include "guestbook.fullname" . -}}
+{{- $labels := include "guestbook.labels" . | nindent 4}}
+{{- $selectorLabels := include "guestbook.selectorLabels" . | nindent 6}}
+{{- range .Values.services }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $fullName }}-{{ .name }}
+  labels:
+  {{- $labels }}
+    app.service: {{ .name }}
+spec:
+  replicas: {{ .replicaCount }}
+  selector:
+    matchLabels:
+    {{- $selectorLabels }}
+      app.service: {{ .name }}
+  template:
+    metadata:
+      labels:
+      {{- $labels | indent 4}}
+        app.service: {{ .name }}
+    spec:
+      containers:
+      - name: {{ $.Chart.Name }}-{{ .name }}
+        image: {{ .image.repository }}:{{ .image.tag }}
+        imagePullPolicy: {{ .image.pullPolicy }}
+        ports:
+        - name: http
+          containerPort: {{ .service.port }}
+          protocol: TCP
+{{ end }}

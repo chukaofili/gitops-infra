@@ -1,0 +1,21 @@
+{{- $fullName := include "guestbook.fullname" . -}}
+{{- $labels := include "guestbook.labels" . | nindent 4}}
+{{- range .Values.services }}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ $fullName }}-{{ .name }}-test-connection
+  labels:
+  {{- $labels }}
+    app.service: {{ .name }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+  - name: wget
+    image: busybox
+    command: ['wget']
+    args: ['{{ $fullName }}-{{ .name }}:{{ .service.port }}']
+  restartPolicy: Never
+{{ end }}
