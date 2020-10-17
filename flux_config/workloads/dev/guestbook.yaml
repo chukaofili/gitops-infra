@@ -5,7 +5,8 @@ metadata:
   namespace: development
   annotations:
     fluxcd.io/automated: "true"
-    filter.fluxcd.io/chart-image: glob:*
+    filter.fluxcd.io/tag.frontend.services: glob:*
+    filter.fluxcd.io/tag.backend.services: glob:*
 spec:
   releaseName: guestbook
   chart:
