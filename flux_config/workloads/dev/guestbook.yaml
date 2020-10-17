@@ -7,15 +7,15 @@ metadata:
   #   fluxcd.io/automated: "true"
   #   filter.fluxcd.io/chart-image: glob:*
 spec:
-  releaseName: podinfo-dev
+  releaseName: guestbook
   chart:
-    git: git@github.com:fluxcd/helm-operator-get-started
+    git: git@github.com:chukaofili/gitops-infra
     path: flux_config/charts/guestbook
     ref: master
   values:
     frontend:
       image:
-        repository: gcr.io/ms-clients-2018/nodejs-guestbook-backend
+        repository: gcr.io/ms-clients-2018/nodejs-guestbook-frontend
         tag: 18c4e8f
       replicaCount: 1
     backend:
