@@ -18,7 +18,7 @@ spec:
     frontend:
       image:
         repository: gcr.io/ms-clients-2018/nodejs-guestbook-frontend
-        tag: 90b6273
+        tag: 0b47b75
       replicaCount: 1
     backend:
       dbUrl: "mongodb.system:27017"
