@@ -3,9 +3,9 @@ kind: HelmRelease
 metadata:
   name: guestbook
   namespace: development
-  annotations:
-    fluxcd.io/automated: "true"
-    filter.fluxcd.io/chart-image: glob:*
+  # annotations:
+  #   fluxcd.io/automated: "true"
+  #   filter.fluxcd.io/chart-image: glob:*
 spec:
   releaseName: podinfo-dev
   chart:
