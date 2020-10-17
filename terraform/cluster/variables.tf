@@ -22,5 +22,5 @@ variable "cluster_name" {
 
 variable "cluster_version" {
   type = string
-  default = "1.17.12-gke.500"
+  default = "1.17.12-gke.1501"
 }
